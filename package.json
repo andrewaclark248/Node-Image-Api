@@ -1,0 +1,19 @@
+{
+  "name": "node-image-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andrewaclark248/Node-Image-Api.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/andrewaclark248/Node-Image-Api/issues"
+  },
+  "homepage": "https://github.com/andrewaclark248/Node-Image-Api#readme"
+}
