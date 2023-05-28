@@ -1,9 +1,9 @@
 import express from 'express';
 const apiRoutes = express.Router();
-import AuthController from "./../../controllers/apiController.js";
+import {show} from "./../../controllers/apiController.js";
 
 //api route
-apiRoutes.get('/images', AuthController.show);
+apiRoutes.get('/images', show);
 
 
 
