@@ -25,6 +25,28 @@ function getFile(fileName) {
     return {fileExist: fileExist, filePath: filePath}
 } 
 
+function checkCache(fileName) {
+    let fileExist = false;
+    let filePath = null
+    let pathJpg = `./src/assets/thumb/${fileName}.jpg`
+    let pathPng = `./src/assets/thumb/${fileName}.png`
+
+    try {
+        if (fs.existsSync(pathJpg)) {
+            fileExist = true;
+            filePath = pathJpg;
+        }else if (fs.existsSync(pathPng)) {
+            fileExist = true;
+            filePath = pathPng;
+        }
+
+    } catch(err) {
+        console.error(err)
+    }
+
+    return {fileExist: fileExist, filePath: filePath}
+}
+
 
 export async function show(req, res, next) {
     let file = getFile(req.query?.filename) //check if file exist
@@ -34,8 +56,14 @@ export async function show(req, res, next) {
     let height = Number(req.query?.height) > 1 ? Number(req.query?.height) : 200
 
     if (file.fileExist) {
-        var data = fs.readFileSync(file.filePath);
+        //caching
+        let cache = checkCache(req.query?.filename)
+        if (cache.fileExist) {
+            res.sendFile(path.resolve(cache.filePath))
+            return
+        }
 
+        var data = fs.readFileSync(file.filePath);
         let newImage = await sharp(data)
                                 .resize({
                                     width: width,
