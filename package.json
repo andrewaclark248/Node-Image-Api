@@ -18,7 +18,8 @@
   },
   "homepage": "https://github.com/andrewaclark248/Node-Image-Api#readme",
   "dependencies": {
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "sharp": "^0.32.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.22"
