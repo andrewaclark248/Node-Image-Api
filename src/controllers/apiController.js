@@ -28,15 +28,18 @@ function getFile(fileName) {
 
 export async function show(req, res, next) {
     let file = getFile(req.query?.filename) //check if file exist
-    
-    console.log("file", file)
+
+    //set height and width to 200 if parameter is null
+    let width = Number(req.query?.width) > 1 ? Number(req.query?.width) : 200
+    let height = Number(req.query?.height) > 1 ? Number(req.query?.height) : 200
+
     if (file.fileExist) {
         var data = fs.readFileSync(file.filePath);
 
         let newImage = await sharp(data)
                                 .resize({
-                                    width: 150,
-                                    height: 150
+                                    width: width,
+                                    height: height
                                 }).toBuffer()
 
         let fileName = path.basename(file.filePath)
