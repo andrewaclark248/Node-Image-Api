@@ -1,8 +1,10 @@
 import express from 'express';
-const routes = express.Router();
-var ApiController = require("./../../controllers/apiController")
+const apiRoutes = express.Router();
+import AuthController from "./../../controllers/apiController.js";
 
 //api route
-routes.get('/images', ApiController.show);
+apiRoutes.get('/images', AuthController.show);
+
+
 
 export default apiRoutes;

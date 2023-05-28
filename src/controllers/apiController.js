@@ -1,10 +1,15 @@
-module.exports = {
 
+class AuthController {
 
     show(req, res, next) {
-        console.log("api request created haahahh")
+
+        //res.sendFile(fileName)
+        console.log("api request created haahahh");
+        res.send("show action response");
     }
 
-
-
 }
+
+
+
+export default new AuthController;
