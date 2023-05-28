@@ -27,7 +27,6 @@ function getFile(fileName) {
 
 
 export async function show(req, res, next) {
-    //let fileName = 
     let file = getFile(req.query?.filename) //check if file exist
     
     console.log("file", file)
@@ -46,10 +45,7 @@ export async function show(req, res, next) {
 
         });
         
-        //res.sendFile(path [, options] [, fn])
-        res.send("send response");
-
-
+        res.sendFile(path.resolve(filePath))
     } else {
         res.send("please provide a filename; not provided");
     }
