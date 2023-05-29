@@ -2,10 +2,11 @@
   "name": "node-image-api",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon src/app.js"
+    "start": "nodemon src/app.ts",
+    "build": "npx tsc"
   },
   "repository": {
     "type": "git",
@@ -19,6 +20,7 @@
   "homepage": "https://github.com/andrewaclark248/Node-Image-Api#readme",
   "dependencies": {
     "-": "^0.0.1",
+    "@types/express": "^4.17.17",
     "@types/node": "^20.2.5",
     "@typescript-eslint/eslint-plugin": "^5.59.7",
     "@typescript-eslint/parser": "^5.59.7",
@@ -32,6 +34,5 @@
   },
   "devDependencies": {
     "nodemon": "^2.0.22"
-  },
-  "type": "module"
+  }
 }

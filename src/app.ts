@@ -1,9 +1,9 @@
 import express from 'express'
-import apiRoutes from './routes/api/apiRoutes.js'
-import routes from './routes/index.js'
+import apiRoutes from './routes/api/apiRoutes'
+import routes from './routes/index'
 
 const app = express();
-const port = 3000;
+let port = 3000;
 
 app.use("/api", apiRoutes)
 app.use("/", routes)
