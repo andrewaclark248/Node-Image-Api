@@ -1,11 +1,12 @@
 import sharp from 'sharp'
 import fs from 'fs';
 import * as path from 'path';
+import { Request, Response, NextFunction, Router } from 'express';
+import { GetFileInterface } from "./../interfaces/apiInterface"
 
-
-function getFile(fileName) {
-    let fileExist = false;
-    let filePath = null
+function getFile(fileName: (string | null)): GetFileInterface {
+    let fileExist: boolean = false;
+    let filePath: string  = ""
     let pathJpg = `./src/assets/full/${fileName}.jpg`
     let pathPng = `./src/assets/full/${fileName}.png`
 
@@ -25,16 +26,17 @@ function getFile(fileName) {
     return {fileExist: fileExist, filePath: filePath}
 } 
 
-function checkCache(fileName) {
-    let fileExist = false;
-    let filePath = null
-    let pathJpg = `./src/assets/thumb/${fileName}.jpg`
-    let pathPng = `./src/assets/thumb/${fileName}.png`
+function checkCache(fileName: string): GetFileInterface {
+    let result: GetFileInterface = {fileExist: false, filePath: ""};
+    let fileExist: boolean = false;
+    let filePath: string = "";
+    let pathJpg: string = `./src/assets/thumb/${fileName}.jpg`
+    let pathPng: string= `./src/assets/thumb/${fileName}.png`
 
     try {
         if (fs.existsSync(pathJpg)) {
-            fileExist = true;
-            filePath = pathJpg;
+            result.fileExist = true;
+            result.filePath = pathJpg;
         }else if (fs.existsSync(pathPng)) {
             fileExist = true;
             filePath = pathPng;
@@ -44,12 +46,12 @@ function checkCache(fileName) {
         console.error(err)
     }
 
-    return {fileExist: fileExist, filePath: filePath}
+    return result;
 }
 
 
-export async function show(req, res, next) {
-    let file = getFile(req.query?.filename) //check if file exist
+export async function show(req: Request, res: Response, next: NextFunction) {
+    let file: GetFileInterface = getFile(req.query?.filename as string); //check if file exist
 
     //set height and width to 200 if parameter is null
     let width = Number(req.query?.width) > 1 ? Number(req.query?.width) : 200
@@ -57,7 +59,7 @@ export async function show(req, res, next) {
 
     if (file.fileExist) {
         //caching
-        let cache = checkCache(req.query?.filename)
+        let cache = checkCache(req.query?.filename as string)
         if (cache.fileExist) {
             res.sendFile(path.resolve(cache.filePath))
             return
@@ -72,9 +74,7 @@ export async function show(req, res, next) {
 
         let fileName = path.basename(file.filePath)
         let filePath = `./src/assets/thumb/${fileName}`
-        fs.writeFileSync(filePath, newImage, { flag: 'w' }, (err) => {
-
-        });
+        fs.writeFileSync(filePath, newImage, { flag: 'w' });
         
         res.sendFile(path.resolve(filePath))
     } else {
