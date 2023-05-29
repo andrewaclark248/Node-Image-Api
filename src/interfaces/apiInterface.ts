@@ -1,4 +1,4 @@
 export interface GetFileInterface {
-    fileExist: boolean, 
-    filePath: string
+  fileExist: boolean;
+  filePath: string;
 }
