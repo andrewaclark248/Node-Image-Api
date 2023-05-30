@@ -26,8 +26,8 @@ function getFile(fileName: FileName, dimensionPresent: boolean, parsedFileName: 
     if (fs.existsSync(pathFullJpg) || fs.existsSync(pathFullPng)) { 
         fileFullPath = fs.existsSync(pathFullJpg) ? `./src/assets/full/${fileName.file}.jpg` : `./src/assets/full/${fileName.file}.png`;
         let ext: string = fs.existsSync(pathFullJpg) ? `jpg` : `png`;
-        let parsedName: string = `${fileName.file}-imageapi-width${parsedFileName.width.toString()}-height${parsedFileName.height.toString()}.${ext}`
-        fileThumbPath = `./src/assets/thumb/${parsedName}`;
+        //let parsedName: string = `${fileName.file}-imageapi-width${parsedFileName.width.toString()}-height${parsedFileName.height.toString()}.${ext}`
+        fileThumbPath = `./src/assets/thumb/${fileName.parsedName}.${ext}`;
 
         if (fs.existsSync(pathThumbJpg) ) {
             create = false;
@@ -97,9 +97,8 @@ function createParsedFileName(filename: string, width: string, height: string): 
   let parsedWidth = Number(width) > 1 ? Number(width) : 200;
   let parsedHeight = Number(height) > 1 ? Number(height) : 200;
   let parsedName = `${filename}-imageapi-width${parsedWidth.toString()}-height${parsedHeight.toString()}`
-  let parseNamePath = `./src/assets/thumb/${parsedName}`;
 
-  let fileName: FileName = {file: filename, parsedName: parsedName, parseNamePath: parseNamePath,width: parsedWidth, height: parsedHeight}
+  let fileName: FileName = {file: filename, parsedName: parsedName, width: parsedWidth, height: parsedHeight}
   
   return fileName;
 }
