@@ -3,7 +3,7 @@ import fs from 'fs';
 import * as path from 'path';
 import { Request, Response, NextFunction, Router } from 'express';
 import { GetFileInterface, FileName } from './../interfaces/apiInterface';
-import { getFile } from './../utils/index'
+import { getFile, createParsedFileName } from './../utils/index'
 
 
 export async function show(req: Request, res: Response, next: NextFunction) {
@@ -41,15 +41,5 @@ export async function show(req: Request, res: Response, next: NextFunction) {
       res.send('please pass file demensions');
   }
 
-}
-
-function createParsedFileName(filename: string, width: string, height: string): FileName {
-  let parsedWidth = Number(width)
-  let parsedHeight = Number(height)
-  let parsedName = `${filename}-imageapi-width${parsedWidth.toString()}-height${parsedHeight.toString()}`
-
-  let fileName: FileName = {file: filename, parsedName: parsedName, width: parsedWidth, height: parsedHeight}
-  
-  return fileName;
 }
 

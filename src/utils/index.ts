@@ -44,3 +44,15 @@ export function getFile(fileName: FileName, dimensionPresent: boolean, parsedFil
     return { dimensionsPresent: false, fileExist: false, create: false, fileFullPath: "", fileThumbPath: "" }
   }
   
+
+ export function createParsedFileName(filename: string, width: string, height: string): FileName {
+    let parsedWidth = Number(width)
+    let parsedHeight = Number(height)
+    let parsedName = `${filename}-imageapi-width${parsedWidth.toString()}-height${parsedHeight.toString()}`
+  
+    let fileName: FileName = {file: filename, parsedName: parsedName, width: parsedWidth, height: parsedHeight}
+    
+    return fileName;
+  }
+  
+  
