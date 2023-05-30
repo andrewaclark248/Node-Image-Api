@@ -82,13 +82,11 @@ export async function show(req: Request, res: Response, next: NextFunction) {
       res.send('please pass file demensions');
   }
 
-
 }
 
 function createParsedFileName(filename: string, width: string, height: string): FileName {
-  //set height and width to 200 if parameter is null
-  let parsedWidth = Number(width) > 1 ? Number(width) : 200;
-  let parsedHeight = Number(height) > 1 ? Number(height) : 200;
+  let parsedWidth = Number(width)
+  let parsedHeight = Number(height)
   let parsedName = `${filename}-imageapi-width${parsedWidth.toString()}-height${parsedHeight.toString()}`
 
   let fileName: FileName = {file: filename, parsedName: parsedName, width: parsedWidth, height: parsedHeight}
