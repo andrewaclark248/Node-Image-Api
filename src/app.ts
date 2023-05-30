@@ -12,6 +12,8 @@ app.listen(port, () => {
   console.log(' serverted started on port 3000');
 });
 
+export default app;
+
 //step 1
 // placeholder api
 // place images in front end
