@@ -7,8 +7,8 @@ export interface GetFileInterface {
 }
 
 export interface FileName {
-    file: string; //basename of file
-    width: number;
-    height: number;
-    parsedName: string; //basename of file includes width and height
+  file: string; //basename of file
+  width: number;
+  height: number;
+  parsedName: string; //basename of file includes width and height
 }
