@@ -20,21 +20,17 @@ function getFile(fileName: FileName, dimensionPresent: boolean, parsedFileName: 
   let pathFullJpg = `./src/assets/full/${fileName.file}.jpg`;
   let pathFullPng = `./src/assets/full/${fileName.file}.png`;
 
-
   try {
     //check if file exists in full path
     if (fs.existsSync(pathFullJpg) || fs.existsSync(pathFullPng)) { 
-        fileFullPath = fs.existsSync(pathFullJpg) ? `./src/assets/full/${fileName.file}.jpg` : `./src/assets/full/${fileName.file}.png`;
-        let ext: string = fs.existsSync(pathFullJpg) ? `jpg` : `png`;
-        //let parsedName: string = `${fileName.file}-imageapi-width${parsedFileName.width.toString()}-height${parsedFileName.height.toString()}.${ext}`
-        fileThumbPath = `./src/assets/thumb/${fileName.parsedName}.${ext}`;
+        fileFullPath = fs.existsSync(pathFullJpg) ? pathFullJpg : pathFullPng
+        fileThumbPath = fs.existsSync(pathFullJpg) ? pathThumbJpg : pathThumbPng
 
         if (fs.existsSync(pathThumbJpg) ) {
             create = false;
         } else if (fs.existsSync(pathThumbPng)) {
             create = false;
         } else {
-
             create = true;
         }
 
@@ -43,9 +39,6 @@ function getFile(fileName: FileName, dimensionPresent: boolean, parsedFileName: 
     } else {
         return { dimensionsPresent: true, fileExist: false, create: false, fileFullPath: "", fileThumbPath: ""};
     }
-
-
-
 
   } catch (err) {
     console.error(err);
@@ -93,7 +86,7 @@ export async function show(req: Request, res: Response, next: NextFunction) {
 }
 
 function createParsedFileName(filename: string, width: string, height: string): FileName {
-      //set height and width to 200 if parameter is null
+  //set height and width to 200 if parameter is null
   let parsedWidth = Number(width) > 1 ? Number(width) : 200;
   let parsedHeight = Number(height) > 1 ? Number(height) : 200;
   let parsedName = `${filename}-imageapi-width${parsedWidth.toString()}-height${parsedHeight.toString()}`
