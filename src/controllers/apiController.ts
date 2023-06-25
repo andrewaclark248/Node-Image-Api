@@ -5,7 +5,7 @@ import { Request, Response, NextFunction, Router } from 'express';
 import { GetFileInterface, FileName } from './../interfaces/apiInterface';
 import { getFile, createParsedFileName } from './../utils/index';
 
-export async function show(req: Request, res: Response, next: NextFunction) {
+export async function show(req: Request, res: Response, next: NextFunction): Promise<void> {
   let parsedFileName = createParsedFileName(
     req.query?.filename as string,
     req.query?.width as string,
@@ -50,7 +50,7 @@ export async function show(req: Request, res: Response, next: NextFunction) {
 }
 
 
-function isNumber(width: string, height: string) {
+function isNumber(width: string, height: string): boolean {
   let isEmptyString: boolean = Number(width) == 0 || Number(height) == 0 ? true : false;
   if (isEmptyString) {
     return false
