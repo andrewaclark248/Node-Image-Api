@@ -11,9 +11,11 @@ export async function show(req: Request, res: Response, next: NextFunction) {
     req.query?.width as string,
     req.query?.height as string
   );
-  let dimensionPresent: boolean =
-    req.query?.width == null || req.query?.height == null ? false : true;
 
+
+  let dimensionPresent =  isNumber(req.query?.width as string, req.query?.height as string)
+
+  console.log("dimensionPresent", dimensionPresent)
   if (dimensionPresent) {
     let getFileResult: GetFileInterface = getFile(
       parsedFileName,
@@ -45,4 +47,19 @@ export async function show(req: Request, res: Response, next: NextFunction) {
     //must pass demensions
     res.send('please pass file demensions');
   }
+}
+
+
+function isNumber(width: string, height: string) {
+  let isEmptyString: boolean = Number(width) == 0 || Number(height) == 0 ? true : false;
+  if (isEmptyString) {
+    return false
+  }
+
+  let isInValidNumber: boolean = isNaN(Number(width))|| isNaN(Number(height)) ? true : false;
+  if (isInValidNumber) {
+    return false
+  }
+
+  return true;
 }
