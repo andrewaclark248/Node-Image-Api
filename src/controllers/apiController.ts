@@ -5,17 +5,23 @@ import { Request, Response, NextFunction, Router } from 'express';
 import { GetFileInterface, FileName } from './../interfaces/apiInterface';
 import { getFile, createParsedFileName } from './../utils/index';
 
-export async function show(req: Request, res: Response, next: NextFunction): Promise<void> {
+export async function show(
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> {
   let parsedFileName = createParsedFileName(
     req.query?.filename as string,
     req.query?.width as string,
     req.query?.height as string
   );
 
+  let dimensionPresent = isNumber(
+    req.query?.width as string,
+    req.query?.height as string
+  );
 
-  let dimensionPresent =  isNumber(req.query?.width as string, req.query?.height as string)
-
-  console.log("dimensionPresent", dimensionPresent)
+  console.log('dimensionPresent', dimensionPresent);
   if (dimensionPresent) {
     let getFileResult: GetFileInterface = getFile(
       parsedFileName,
@@ -49,19 +55,21 @@ export async function show(req: Request, res: Response, next: NextFunction): Pro
   }
 }
 
-
 function isNumber(width: string, height: string): boolean {
-  let isEmptyString: boolean = Number(width) == 0 || Number(height) == 0 ? true : false;
+  let isEmptyString: boolean =
+    Number(width) == 0 || Number(height) == 0 ? true : false;
   if (isEmptyString) {
-    return false
+    return false;
   }
 
-  let isInValidNumber: boolean = isNaN(Number(width))|| isNaN(Number(height)) ? true : false;
+  let isInValidNumber: boolean =
+    isNaN(Number(width)) || isNaN(Number(height)) ? true : false;
   if (isInValidNumber) {
-    return false
+    return false;
   }
 
-  let isNegative: boolean =  Number(width) < 1 || Number(height) < 1 ? true : false
+  let isNegative: boolean =
+    Number(width) < 1 || Number(height) < 1 ? true : false;
   if (isNegative) {
     return false;
   }
