@@ -61,5 +61,9 @@ function isNumber(width: string, height: string) {
     return false
   }
 
+  let isNegative: boolean =  Number(width) < 1 || Number(height) < 1 ? true : false
+  if (isNegative) {
+    return false;
+  }
   return true;
 }
