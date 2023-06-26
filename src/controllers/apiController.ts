@@ -1,8 +1,8 @@
 import sharp from 'sharp';
 import fs from 'fs';
 import * as path from 'path';
-import { Request, Response, NextFunction, Router } from 'express';
-import { GetFileInterface, FileName } from './../interfaces/apiInterface';
+import { Request, Response, NextFunction } from 'express';
+import { GetFileInterface } from './../interfaces/apiInterface';
 import { getFile, createParsedFileName } from './../utils/index';
 
 export async function show(
