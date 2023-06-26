@@ -3,7 +3,7 @@ import apiRoutes from './routes/api/apiRoutes';
 import routes from './routes/index';
 
 const app = express();
-let port = 3000;
+const port = 3000;
 
 app.use('/api', apiRoutes);
 app.use('/', routes);

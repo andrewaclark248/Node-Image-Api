@@ -3,8 +3,7 @@ import fs from 'fs';
 
 export function getFile(
   fileName: FileName,
-  dimensionPresent: boolean,
-  parsedFileName: FileName
+  dimensionPresent: boolean
 ): GetFileInterface {
   if (!dimensionPresent) {
     return {
@@ -17,15 +16,15 @@ export function getFile(
   }
 
   //set initial GetFileInterface paramas
-  let create: boolean = false;
-  let fileFullPath: string = '';
-  let fileThumbPath: string = '';
+  let create = false;
+  let fileFullPath = '';
+  let fileThumbPath = '';
 
   //file paths
-  let pathThumbJpg = `./src/assets/thumb/${fileName.parsedName}.jpg`;
-  let pathThumbPng = `./src/assets/thumb/${fileName.parsedName}.png`;
-  let pathFullJpg = `./src/assets/full/${fileName.file}.jpg`;
-  let pathFullPng = `./src/assets/full/${fileName.file}.png`;
+  const pathThumbJpg = `./src/assets/thumb/${fileName.parsedName}.jpg`;
+  const pathThumbPng = `./src/assets/thumb/${fileName.parsedName}.png`;
+  const pathFullJpg = `./src/assets/full/${fileName.file}.jpg`;
+  const pathFullPng = `./src/assets/full/${fileName.file}.png`;
 
   try {
     //check if file exists in full path
@@ -74,11 +73,11 @@ export function createParsedFileName(
   width: string,
   height: string
 ): FileName {
-  let parsedWidth = Number(width);
-  let parsedHeight = Number(height);
-  let parsedName = `${filename}-imageapi-width${parsedWidth.toString()}-height${parsedHeight.toString()}`;
+  const parsedWidth = Number(width);
+  const parsedHeight = Number(height);
+  const parsedName = `${filename}-imageapi-width${parsedWidth.toString()}-height${parsedHeight.toString()}`;
 
-  let fileName: FileName = {
+  const fileName: FileName = {
     file: filename,
     parsedName: parsedName,
     width: parsedWidth,
