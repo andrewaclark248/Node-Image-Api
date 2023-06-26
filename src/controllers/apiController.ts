@@ -5,10 +5,7 @@ import { Request, Response } from 'express';
 import { GetFileInterface } from './../interfaces/apiInterface';
 import { getFile, createParsedFileName } from './../utils/index';
 
-export async function show(
-  req: Request,
-  res: Response
-): Promise<void> {
+export async function show(req: Request, res: Response): Promise<void> {
   const parsedFileName = createParsedFileName(
     req.query?.filename as string,
     req.query?.width as string,
