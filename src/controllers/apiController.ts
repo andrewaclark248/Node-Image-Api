@@ -3,7 +3,7 @@ import fs from 'fs';
 import * as path from 'path';
 import { Request, Response } from 'express';
 import { GetFileInterface, FileName } from './../interfaces/apiInterface';
-import { getFile, createParsedFileName } from './../utils/index';
+import { getFile, createParsedFileName, imageProcessing } from './../utils/index';
 
 export async function show(req: Request, res: Response): Promise<void> {
   const parsedFileName = createParsedFileName(
@@ -59,19 +59,4 @@ function isNumber(width: string, height: string): boolean {
     return false;
   }
   return true;
-}
-
-async function imageProcessing(fileResult: GetFileInterface, parsedName: FileName) {
-  //if file not cached create file
-  if (fileResult.create) {
-    const data = fs.readFileSync(fileResult.fileFullPath);
-    const newImage = await sharp(data)
-      .resize({
-        width: parsedName.width,
-        height: parsedName.height,
-      })
-      .toBuffer();
-
-    fs.writeFileSync(fileResult.fileThumbPath, newImage, { flag: 'w' });
-  }
 }
