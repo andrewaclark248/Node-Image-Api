@@ -2,7 +2,7 @@ import { imageProcessing } from './../utils/index';
 import { GetFileInterface, FileName } from './../interfaces/apiInterface';
 import fs from 'fs';
 
-fdescribe('image processing tests', () => {
+describe('image processing tests', () => {
   const parsedFileName: FileName = {
     file: 'fjord.jpg',
     parsedName: `fjord-imageapi-width500-height500-${Date.now()}`,

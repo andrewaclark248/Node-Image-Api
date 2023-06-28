@@ -19,7 +19,6 @@ export async function show(req: Request, res: Response): Promise<void> {
     req.query?.height as string
   );
 
-  console.log('dimensionPresent', dimensionPresent);
   if (dimensionPresent) {
     const getFileResult: GetFileInterface = getFile(
       parsedFileName,
