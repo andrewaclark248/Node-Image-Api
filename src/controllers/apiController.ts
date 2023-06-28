@@ -2,8 +2,8 @@ import sharp from 'sharp';
 import fs from 'fs';
 import * as path from 'path';
 import { Request, Response } from 'express';
-import { GetFileInterface } from './../interfaces/apiInterface';
-import { getFile, createParsedFileName } from './../utils/index';
+import { GetFileInterface, FileName } from './../interfaces/apiInterface';
+import { getFile, createParsedFileName, imageProcessing } from './../utils/index';
 
 export async function show(req: Request, res: Response): Promise<void> {
   const parsedFileName = createParsedFileName(
@@ -27,17 +27,7 @@ export async function show(req: Request, res: Response): Promise<void> {
     //check if file exists
     if (getFileResult.fileExist) {
       //if file not cached create file
-      if (getFileResult.create) {
-        const data = fs.readFileSync(getFileResult.fileFullPath);
-        const newImage = await sharp(data)
-          .resize({
-            width: parsedFileName.width,
-            height: parsedFileName.height,
-          })
-          .toBuffer();
-
-        fs.writeFileSync(getFileResult.fileThumbPath, newImage, { flag: 'w' });
-      }
+      await imageProcessing(getFileResult, parsedFileName);
 
       res.sendFile(path.resolve(getFileResult.fileThumbPath));
     } else {

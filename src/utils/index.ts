@@ -1,6 +1,7 @@
 import { GetFileInterface, FileName } from './../interfaces/apiInterface';
 import fs from 'fs';
 import * as path from 'path';
+import sharp from 'sharp';
 
 
 export function getFile(
@@ -27,14 +28,6 @@ export function getFile(
   const pathThumbPng = path.join(__dirname, '..','..', 'assets', 'thumb', `${fileName.parsedName}.png`);
   const pathFullJpg = path.join(__dirname, '..','..', 'assets', 'full', `${fileName.file}.jpg`);
   const pathFullPng = path.join(__dirname, '..', '..','assets', 'full', `${fileName.file}.png`);
-
-  console.log("pathFullJpg", pathFullJpg)
-  console.log("fullpathexists", fs.existsSync(pathFullJpg))
-
-  //const pathThumbJpg = `./src/assets/thumb/${fileName.parsedName}.jpg`;
-  //const pathThumbPng = `./src/assets/thumb/${fileName.parsedName}.png`;
-  //const pathFullJpg = `./src/assets/full/${fileName.file}.jpg`;
-  //const pathFullPng = `./src/assets/full/${fileName.file}.png`;
 
   try {
     //check if file exists in full path
@@ -96,3 +89,19 @@ export function createParsedFileName(
 
   return fileName;
 }
+
+export async function imageProcessing(fileResult: GetFileInterface, parsedName: FileName) {
+  //if file not cached create file
+  if (fileResult.create) {
+    const data = fs.readFileSync(fileResult.fileFullPath);
+    const newImage = await sharp(data)
+      .resize({
+        width: parsedName.width,
+        height: parsedName.height,
+      })
+      .toBuffer();
+
+    fs.writeFileSync(fileResult.fileThumbPath, newImage, { flag: 'w' });
+  }
+}
+
