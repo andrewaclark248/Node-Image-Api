@@ -3,7 +3,11 @@ import fs from 'fs';
 import * as path from 'path';
 import { Request, Response } from 'express';
 import { GetFileInterface, FileName } from './../interfaces/apiInterface';
-import { getFile, createParsedFileName, imageProcessing } from './../utils/index';
+import {
+  getFile,
+  createParsedFileName,
+  imageProcessing,
+} from './../utils/index';
 
 export async function show(req: Request, res: Response): Promise<void> {
   const parsedFileName = createParsedFileName(
