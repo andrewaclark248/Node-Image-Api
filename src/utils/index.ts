@@ -3,7 +3,6 @@ import fs from 'fs';
 import * as path from 'path';
 import sharp from 'sharp';
 
-
 export function getFile(
   fileName: FileName,
   dimensionPresent: boolean
@@ -24,10 +23,38 @@ export function getFile(
   let fileThumbPath = '';
 
   //file paths
-  const pathThumbJpg = path.join(__dirname, '..','..', 'assets', 'thumb', `${fileName.parsedName}.jpg`);
-  const pathThumbPng = path.join(__dirname, '..','..', 'assets', 'thumb', `${fileName.parsedName}.png`);
-  const pathFullJpg = path.join(__dirname, '..','..', 'assets', 'full', `${fileName.file}.jpg`);
-  const pathFullPng = path.join(__dirname, '..', '..','assets', 'full', `${fileName.file}.png`);
+  const pathThumbJpg = path.join(
+    __dirname,
+    '..',
+    '..',
+    'assets',
+    'thumb',
+    `${fileName.parsedName}.jpg`
+  );
+  const pathThumbPng = path.join(
+    __dirname,
+    '..',
+    '..',
+    'assets',
+    'thumb',
+    `${fileName.parsedName}.png`
+  );
+  const pathFullJpg = path.join(
+    __dirname,
+    '..',
+    '..',
+    'assets',
+    'full',
+    `${fileName.file}.jpg`
+  );
+  const pathFullPng = path.join(
+    __dirname,
+    '..',
+    '..',
+    'assets',
+    'full',
+    `${fileName.file}.png`
+  );
 
   try {
     //check if file exists in full path
@@ -90,7 +117,10 @@ export function createParsedFileName(
   return fileName;
 }
 
-export async function imageProcessing(fileResult: GetFileInterface, parsedName: FileName) {
+export async function imageProcessing(
+  fileResult: GetFileInterface,
+  parsedName: FileName
+) {
   //if file not cached create file
   if (fileResult.create) {
     const data = fs.readFileSync(fileResult.fileFullPath);
@@ -104,4 +134,3 @@ export async function imageProcessing(fileResult: GetFileInterface, parsedName: 
     fs.writeFileSync(fileResult.fileThumbPath, newImage, { flag: 'w' });
   }
 }
-
