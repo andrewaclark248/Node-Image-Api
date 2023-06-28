@@ -1,8 +1,6 @@
-import sharp from 'sharp';
-import fs from 'fs';
 import * as path from 'path';
 import { Request, Response } from 'express';
-import { GetFileInterface, FileName } from './../interfaces/apiInterface';
+import { GetFileInterface } from './../interfaces/apiInterface';
 import {
   getFile,
   createParsedFileName,

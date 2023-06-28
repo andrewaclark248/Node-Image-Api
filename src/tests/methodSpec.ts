@@ -19,7 +19,7 @@ fdescribe('image processing tests', () => {
   };
 
   afterEach(function () {
-    let fileExist = fs.existsSync(createNewImage.fileThumbPath);
+    const fileExist = fs.existsSync(createNewImage.fileThumbPath);
     if (fileExist) {
       fs.unlinkSync(createNewImage.fileThumbPath);
     }
@@ -28,7 +28,7 @@ fdescribe('image processing tests', () => {
   it('success', async () => {
     await imageProcessing(createNewImage, parsedFileName);
 
-    let result = fs.existsSync(createNewImage.fileThumbPath);
+    const result = fs.existsSync(createNewImage.fileThumbPath);
     expect(result).toBe(true);
   });
 
@@ -36,7 +36,7 @@ fdescribe('image processing tests', () => {
     createNewImage.create = false;
     await imageProcessing(createNewImage, parsedFileName);
 
-    let result = fs.existsSync(createNewImage.fileThumbPath);
+    const result = fs.existsSync(createNewImage.fileThumbPath);
     expect(result).toBe(false);
   });
 });
